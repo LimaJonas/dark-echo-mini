@@ -18,7 +18,11 @@ const ZOOM_MIN = 0.5;
 const ZOOM_MAX = 3;
 
 // Player
-const player = {x:0,y:0,r:6,alpha:1,moving:false};
+const stepSize=15; //Tamanho do passo
+const player = {x:50,y:50,r:6,alpha:1,moving:false};
+player.targetX = player.x;
+player.targetY = player.y;
+player.speed = 5;
 // Goal
 const goal = {x:0,y:0,r:10};
 // Level inicial

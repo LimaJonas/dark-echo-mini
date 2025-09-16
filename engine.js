@@ -49,40 +49,43 @@ function update(delta){
                emitPulse();
                touchTarget = null;
           } else {
-               const stepSize = 10;
                const nx = player.x + (dx/dist) * stepSize;
                const ny = player.y + (dy/dist) * stepSize;
                if(canMoveTo(nx, ny)){
                     player.moving = true;
                     player.alpha = 0;
-                    player.x = Math.max(16, Math.min(W-16, nx));
-                    player.y = Math.max(16, Math.min(H-16, ny));
+                    player.targetX = Math.max(16, Math.min(W-16, nx));
+                    player.targetY = Math.max(16, Math.min(H-16, ny));
                     emitPulse("step");
                     setTimeout(()=>{player.alpha=1; player.moving=false;},100);
                } else {
-                    // Se bater em parede, para o movimento
                     touchTarget = null;
                }
           }
      }
 
-     // Apply keyboard move
+     // Movimento com teclado
      if(dx!==0||dy!==0){
           if(stepTimer>STEP_INTERVAL){
                stepTimer=0;
-               const stepSize=10;
                const nx=player.x+dx*stepSize;
                const ny=player.y+dy*stepSize;
                if(canMoveTo(nx,ny)){
-               player.moving=true;
-               player.alpha=0;
-               player.x=Math.max(16,Math.min(W-16,nx));
-               player.y=Math.max(16,Math.min(H-16,ny));
-               emitPulse("step");
-               setTimeout(()=>{player.alpha=1; player.moving=false;},100);
+                    player.moving=true;
+                    player.alpha=0;
+                    player.targetX=Math.max(16,Math.min(W-16,nx));
+                    player.targetY=Math.max(16,Math.min(H-16,ny));
+                    emitPulse("step");
+                    setTimeout(()=>{player.alpha=1; player.moving=false;},100);
                }
           }
      }
+
+     // Movimento suave do player
+     const lerp = (a, b, t) => a + (b - a) * t;
+     player.x = lerp(player.x, player.targetX, player.speed * delta / 1000);
+     player.y = lerp(player.y, player.targetY, player.speed * delta / 1000);
+
 
      // --- Pulses ---
      for(let p of pulses){ p.r+=PULSE_SPEED; p.alpha*=(p.step?0.94:0.985); }
