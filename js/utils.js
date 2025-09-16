@@ -19,11 +19,16 @@ fullscreenBtn.addEventListener('click', () => {
      else if (canvas.webkitRequestFullscreen) canvas.webkitRequestFullscreen();
 });
 
+const reset = document.getElementById('reset');
+reset.addEventListener('click', () => {
+     loadLevel(currentLevel)
+});
+
 // --- Load Level ---
 function loadLevel(index){
     const lvl = window.LEVELS[index];
-    player.x = lvl.start.x;
-    player.y = lvl.start.y;
+    player.targetX = lvl.start.x;
+    player.targetY = lvl.start.y;
     walls = lvl.walls.map(w=>({...w}));
     goal.x = lvl.goal.x;
     goal.y = lvl.goal.y;
