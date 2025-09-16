@@ -29,6 +29,7 @@ const goal = {x:0,y:0,r:10};
 let currentLevel = 0;
 // Pulses
 let pulses = [];
+let pulseCooldown = 0;
 const PULSE_SPEED = 2.0;
 const PULSE_MAX = Math.hypot(W,H);
 // Movimento

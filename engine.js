@@ -22,14 +22,21 @@ function castRay(px,py,angle,maxDist=PULSE_MAX){
 
 // --- Pulses ---
 function emitPulse(type="manual"){
-     if(type==="manual") pulses.push({x:player.x,y:player.y,r:4,alpha:1});
-     else if(type==="step") pulses.push({x:player.x,y:player.y,r:2,alpha:0.8,step:true});
+     if(type==="manual") {
+          if (pulseCooldown > 0) return; // Evita spam segurando o botão
+          pulses.push({x:player.x,y:player.y,r:4,alpha:1});
+          pulseCooldown = 350; // Tempo mínimo entre pulsos manuais (ms)
+     }
+     else if(type==="step") { pulses.push({x:player.x,y:player.y,r:2,alpha:0.8,step:true}); }
 }
 
 // --- Update ---
 function update(delta){
      if(updateTransition(delta)) return;
      stepTimer += delta;
+     
+     // Atualiza cooldown do pulso
+     if (pulseCooldown > 0) pulseCooldown -= delta;
 
      // --- Keyboard ---
      let dx=0, dy=0;
