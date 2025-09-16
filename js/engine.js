@@ -93,7 +93,6 @@ function update(delta){
      player.x = lerp(player.x, player.targetX, player.speed * delta / 1000);
      player.y = lerp(player.y, player.targetY, player.speed * delta / 1000);
 
-
      // --- Pulses ---
      for(let p of pulses){ p.r+=PULSE_SPEED; p.alpha*=(p.step?0.94:0.985); }
      pulses=pulses.filter(p=>p.r<PULSE_MAX && p.alpha>0.01);

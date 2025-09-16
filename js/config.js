@@ -18,7 +18,7 @@ const ZOOM_MIN = 0.5;
 const ZOOM_MAX = 3;
 
 // Player
-const stepSize=15; //Tamanho do passo
+const stepSize=30; //Tamanho do passo
 const player = {x:50,y:50,r:6,alpha:1,moving:false};
 player.targetX = player.x;
 player.targetY = player.y;
@@ -34,7 +34,7 @@ const PULSE_SPEED = 2.0;
 const PULSE_MAX = Math.hypot(W,H);
 // Movimento
 let stepTimer = 0;
-const STEP_INTERVAL = 500; //Tempo entre passos
+const STEP_INTERVAL = 400; //Tempo entre passos
 let keys = {};
 let walls = [];
 

@@ -2,9 +2,15 @@
 const menu = document.getElementById('menu');
 const startButton = document.getElementById('startGame');
 startButton.addEventListener('click', () => {
-    menu.style.display = 'none';
-    loadLevel(currentLevel);
-    lastTime = performance.now();
+     menu.style.display = 'none';
+     loadLevel(currentLevel);
+     lastTime = performance.now();
+
+     // Se for smartphone, entra em fullscreen automaticamente
+     if (/Android|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent)) {
+          if (canvas.requestFullscreen) canvas.requestFullscreen();
+          else if (canvas.webkitRequestFullscreen) canvas.webkitRequestFullscreen();
+     }
 });
 
 const fullscreenBtn = document.getElementById('fullscreenBtn');
