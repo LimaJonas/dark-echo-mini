@@ -84,7 +84,7 @@ function updateTransition(delta){
 // --- Map ---
 function drawMap(){
   mapCtx.clearRect(0,0,W,H);
-  mapCtx.fillStyle='#be0000ff';
+  mapCtx.fillStyle='#fff';
   walls.forEach(w=>mapCtx.fillRect(w.x,w.y,w.w,w.h));
 }
 
@@ -116,19 +116,6 @@ function castRay(px,py,angle,maxDist=PULSE_MAX){
 function emitPulse(type="manual"){
   if(type==="manual") pulses.push({x:player.x,y:player.y,r:4,alpha:1});
   else if(type==="step") pulses.push({x:player.x,y:player.y,r:2,alpha:0.8,step:true});
-  try{
-    const ac=new (window.AudioContext||window.webkitAudioContext)();
-    const o=ac.createOscillator();
-    const g=ac.createGain();
-    o.type='sine';
-    o.frequency.value=(type==="manual"?200:400);
-    g.gain.value=(type==="manual"?0.02:0.01);
-    o.connect(g); g.connect(ac.destination);
-    o.start();
-    o.frequency.exponentialRampToValueAtTime((type==="manual"?900:600), ac.currentTime+0.12);
-    g.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime+0.12);
-    o.stop(ac.currentTime+0.13);
-  }catch(e){}
 }
 
 // --- Update ---
